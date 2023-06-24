@@ -1,51 +1,27 @@
+import requests
 import os
-import json
 
-updateAvailable = False
-updateId = ''
-letter = ''
-localletter = ''
+def get_latest_release():
+  url = 'https://github.com/GoldFirey124YT/VibOS/releases/latest'
+  response = requests.get(url)
+  if response.status_code == 200:
+    data = response.json()
+    return data['tag_name']
+  else:
+    print('Error getting latest release')
+    return None
 
-version = open(r"/var/cache/Gversion.txt", "r")
-versionDict = json.loads(version.read())
+def download_latest_release():
+  latest_release = get_latest_release()
+  if latest_release is not None:
+    url = f'https://github.com/GoldFirey124YT/VibOS/releases/download/{latest_release}/VibOS.zip'
+    filename = 'VibOS.zip'
+    response = requests.get(url, stream=True)
+    with open(filename, 'wb') as f:
+      for chunk in response.iter_content(chunk_size=1024):
+        f.write(chunk)
+  else:
+    print('No latest release found')
 
-os.system('sudo git clone https://github.com/GoldFirey124YT/VibOS /tmp/VOScache')
-
-newVersion = open(r"/tmp/VOScache/VerNum.txt", "r")
-newVersionDict = json.loads(newVersion.read())
-
-if versionDict['topRel'] < newVersionDict['topRel']:
-    updateAvailable = True
-
-elif versionDict['featureRel'] < newVersionDict['featureRel']:
-    updateAvailable = True
-
-elif versionDict['patchRel'] < newVersionDict['patchRel']:
-    updateAvailable = True
-
-elif versionDict['minpatchRel'] < newVersionDict['minpatchRel']:
-    updateAvailable = True
-
-if newVersionDict['minpatchRel'] != 0:
-    letter = chr(ord('`') + newVersionDict['minpatchRel'])
-
-if versionDict['minpatchRel'] != 0:
-    localletter = chr(ord('`') + versionDict['minpatchRel'])
-
-if updateAvailable == True:
-
-    updateId = 'VibOS ' + letter + str(newVersionDict['topRel']) + '.' + str(newVersionDict['featureRel']) + '.' + str(newVersionDict['patchRel'])
-    localUpdateId = 'VibOS ' + localletter + str(versionDict['topRel']) + '.' + str(versionDict['featureRel']) + '.' + str(versionDict['patchRel'])
-
-    print(f'New update found ({updateId}).')
-    print(f'Your current version is {localUpdateId}')
-    input(f'Press enter to update to {updateId}')
-    os.system('python3 /tmp/gOScache/Install.py')
-
-else:
-    print('No new updates found Sorry :( .')
-
-# Run these next lines at the end.
-version.close()
-newVersion.close()
-os.system('sudo rm -r /tmp/VOScache')
+if __name__ == '__main__':
+  download_latest_release()
