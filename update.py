@@ -9,9 +9,9 @@ localletter = ''
 version = open(r"/var/cache/Gversion.txt", "r")
 versionDict = json.loads(version.read())
 
-os.system('sudo git clone https://github.com/Golden-Corporation/GoldOS /tmp/gOScache')
+os.system('sudo git clone https://github.com/GoldFirey124YT/VibOS /tmp/VOScache')
 
-newVersion = open(r"/tmp/gOScache/VerNum.txt", "r")
+newVersion = open(r"/tmp/VOScache/VerNum.txt", "r")
 newVersionDict = json.loads(newVersion.read())
 
 if versionDict['topRel'] < newVersionDict['topRel']:
@@ -34,8 +34,8 @@ if versionDict['minpatchRel'] != 0:
 
 if updateAvailable == True:
 
-    updateId = 'GoldOS ' + letter + str(newVersionDict['topRel']) + '.' + str(newVersionDict['featureRel']) + '.' + str(newVersionDict['patchRel'])
-    localUpdateId = 'GoldOS ' + localletter + str(versionDict['topRel']) + '.' + str(versionDict['featureRel']) + '.' + str(versionDict['patchRel'])
+    updateId = 'VibOS ' + letter + str(newVersionDict['topRel']) + '.' + str(newVersionDict['featureRel']) + '.' + str(newVersionDict['patchRel'])
+    localUpdateId = 'VibOS ' + localletter + str(versionDict['topRel']) + '.' + str(versionDict['featureRel']) + '.' + str(versionDict['patchRel'])
 
     print(f'New update found ({updateId}).')
     print(f'Your current version is {localUpdateId}')
@@ -43,9 +43,9 @@ if updateAvailable == True:
     os.system('python3 /tmp/gOScache/Install.py')
 
 else:
-    print('No new updates found.')
+    print('No new updates found Sorry :( .')
 
 # Run these next lines at the end.
 version.close()
 newVersion.close()
-os.system('sudo rm -r /tmp/gOScache')
+os.system('sudo rm -r /tmp/VOScache')
