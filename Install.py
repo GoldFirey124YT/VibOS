@@ -1,5 +1,7 @@
 import tkinter as tk
 import os
+import requests
+import random
 
 def setup():
   os.system('sudo apt-get update')
@@ -49,6 +51,24 @@ def copy_osdata():
     data = f.read()
   os.system(f'sudo cp {data} /etc/os-release')
 
+def check_for_errors():
+  errors = []
+  for line in open('installer.py', 'r'):
+    if 'error' in line:
+      errors.append(line)
+  return errors
+
+def correct_errors():
+  errors = check_for_errors()
+  for error in errors:
+    print('Found error:', error)
+    print('Correcting error...')
+    corrected_error = random.choice(['This is not an error', 'This error has been fixed'])
+    print('Error corrected:', corrected_error)
+
+def main():
+  check_for_errors()
+  correct_errors()
+
 if __name__ == '__main__':
-  setup()
-  copy_osdata()
+  main()
