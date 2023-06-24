@@ -17,7 +17,13 @@ root = tk.Tk()
 root.title('VibOS Installer')
 root.geometry('300x200')
 
-label = tk.Label(root, text='Welcome to the VibOS installer!')
+# Set the look and feel to Windows Vista mixed with Vib ribbon
+root.tk.call('tk', 'setPalette', '#f0f0f0', '#000000', '#ffffff', '#000000', 'black', '#ffffff')
+root.tk.call('tk', 'setTheme', 'vista')
+
+# Add Vibri to the installer
+vibri = tk.PhotoImage(file='Assets/Vibri.png')
+label = tk.Label(root, image=vibri)
 label.pack()
 
 button = tk.Button(root, text='Start Setup', command=setup)
