@@ -1,12 +1,12 @@
 import os
 import time
 
-print("WARNING: This is currently being re-written and this is not recomended to be installed :\\")
-print("Install at your own risk; come back later for better code :)")
-input('Start installing? ')
-print('Installing.')
+print("Welcome To VibOS Beta :\\")
+print("Install at your own risk; This isnt quite finish but please let me know :)")
+input('Start installing VibOS? ')
+print('Installing VibOS..')
 print('Please wait for a little while, while we prepare.')
-print('If you see anything about a lock, please reboot your computer.')
+print('If you see anything about a APT lock, please reboot your computer.')
 
 time.sleep(3)
 
